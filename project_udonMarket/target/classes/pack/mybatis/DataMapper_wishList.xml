@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev">
+	 <!-- 아이디와 동일한 all list 출력 -->
+	 <select id="select_all_wishlist" parameterType="string" resultType="string">
+	  	select product_id
+	  	from wishlist
+	  	where user_id = #{user_id}
+	 </select>
+	 
+	 <select id="select_userProduct_wishlist" parameterType="wishBean" resultType="wishDto">
+	  	select wish_id, like_check, product_id, user_id
+	  	from wishlist
+	  	where user_id = #{user_id}
+	  	and product_id = #{product_id}
+	 </select>
+	 
+	  <select id="select_totalCnt_wishlist" parameterType="string" resultType="integer">
+	 	select count(*)
+	 	from wishlist
+	 	where user_id = #{user_id}
+	 </select>
+	 
+	 <delete id="delete_wishlist" parameterType="wishBean">
+	 	delete from wishlist
+	 	where user_id = #{user_id}
+	 	and product_id = #{product_id}
+	 </delete>
+	 
+	 <insert id="insert_wishlist"  parameterType="wishBean">
+	 	insert into wishlist values(#{wish_id}, 1, #{product_id}, #{user_id})
+	 </insert>
+	 
+	 <select id="select_currentNum_wishlist" resultType="integer">
+	 	select max(wish_id) from wishlist
+	 </select>
+</mapper>

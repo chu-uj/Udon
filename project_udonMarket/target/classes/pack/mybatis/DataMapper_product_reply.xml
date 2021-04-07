@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="reply">
+    
+    <!-- 댓글 입력 -->
+    <insert id="insertReply">
+        INSERT INTO product_reply (reply_no, product_id, reply_content, user_id, reply_date)
+        VALUES (#{reply_no}, #{product_id}, #{reply_content}, #{user_id}, #{reply_date})
+    </insert>
+    
+    <!-- 댓글 목록 -->
+    <select id="listReply" resultType="pack.product.reply.model.ProductReplyDto">
+        SELECT reply_no, product_id, reply_content, r.user_id 
+        AS user_id, r.reply_date, r.reply_updatedate
+        FROM product_reply r, user u
+        WHERE  r.user_id = u.user_id AND product_id=#{product_id}
+        ORDER BY reply_no
+    </select>
+    
+    <!--  maxnum -->
+	 <select id="currentReplyNum" resultType="integer">
+	 	select max(reply_no) from product_reply
+	 </select>
+	 
+	 <delete id="deleteOneReply" parameterType="integer">
+	 	delete from product_reply where reply_no=#{reply_no}
+	 </delete>
+
+</mapper>

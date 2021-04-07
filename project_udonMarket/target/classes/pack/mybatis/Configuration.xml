@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<typeAliases>
+	<typeAlias type="pack.user.model.UserDto" alias="userDto"/>
+	<typeAlias type="pack.user.controller.UserBean" alias="userBean"/>
+	<typeAlias type="pack.board.model.BoardDto" alias="dto"/>
+	<typeAlias type="pack.board.controller.BoardBean" alias="formBean"/>
+	<typeAlias type="pack.blame.model.BlameDto" alias="blameDto"/>
+	<typeAlias type="pack.blame.model.BlameBean" alias="blameFormBean"/>
+	<typeAlias type="pack.product.model.ProductDto" alias="product_dto"/>
+	<typeAlias type="pack.product.controller.ProductBean" alias="product_formBean"/>
+	<typeAlias type="pack.user.model.MyPageDto" alias="myPageDto"/>
+	<typeAlias type="pack.wish.model.WishDto" alias="wishDto"/>
+	<typeAlias type="pack.wish.controller.WishBean" alias="wishBean"/>
+	<typeAlias type="pack.admin.model.AdminDto" alias="adminDto"/>
+	<typeAlias type="pack.admin.model.BanDto" alias="banDto"/>
+	<typeAlias type="pack.admin.model.BanBean" alias="banFormBean"/>
+</typeAliases>
+ <mappers>
+  <mapper resource="pack/mybatis/DataMapper_blame.xml" />
+  <mapper resource="pack/mybatis/DataMapper_searchProduct.xml" />
+  <mapper resource="pack/mybatis/DataMapper_userInfo.xml" />
+  <mapper resource="pack/mybatis/DataMapper_wishList.xml" />
+  <mapper resource="pack/mybatis/DataMapper.xml" />
+  <mapper resource="pack/mybatis/DataMapper_product_reply.xml" />
+  <mapper resource="pack/mybatis/DataMapper_admin.xml" />
+  <mapper resource="pack/mybatis/DataMapper_product.xml" />
+ </mappers>
+</configuration>

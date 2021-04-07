@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev">
+ <select id="selectAdminLoginData" resultType="adminDto" parameterType="String">
+		select admin_id, password
+		from admin
+		where admin_id = #{user_id}
+ </select>
+ 
+ <select id="selectUserAll" resultType="userDto">
+  select * from user 
+ </select>
+ 
+  <delete id="deleteUser" parameterType="string">
+ 	delete from user 
+ 	where user_id= #{user_id}
+ </delete>
+ 
+ <delete id="deleteProduct" parameterType="string">
+ 	delete from product 
+ 	where product_id= #{product_id}
+ </delete>
+  <delete id="deleteBan" parameterType="string">
+ 	delete from banword 
+ 	where ban_id= #{ban_id}
+ </delete>
+
+ <select id="selectWarnAll" resultType="product_dto" >
+ 	select product_id, user_id, category_id, product_title, write_date, product_price, update_date, product_image, product_status, views, product_content
+ 	from product p, banword b
+ 	where p.product_id = b.ban_id 
+ 	and product_title like concat('%',b.ban_word,'%') || p.product_content like concat('%',b.ban_word,'%')
+ </select>
+ 
+ <select id="selectBanAll" resultType="banDto" >
+ 	select *
+ 	from banword
+ </select>
+ 
+ <select id="getMaxbanId" resultType="integer">
+ 	SELECT MAX(ban_id) currentBoard FROM banword
+ </select>
+ 
+ <insert id="insertBan" parameterType="banFormBean">
+ 	insert into banword values(#{ban_id},#{ban_word})
+ </insert>
+ 
+
+</mapper>

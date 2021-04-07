@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev">
+<!-- 일반 게시판 start -->
+	 <!-- 전체 검색 -->
+	 <select id="selectList" resultType="dto">
+	  	select * from board order by group_number desc, order_number asc
+	 </select>
+	 
+	 <!-- 카워드 검색 -->
+	 <select id="searchList" parameterType="formBean" resultType="dto">
+	  	select * from board 
+	  	where ${searchName} like concat('%',#{searchValue},'%') 
+	  	order by group_number desc, order_number asc
+	 </select>
+	 
+	 <!-- 번호로 검색 -->
+	 <select id="selectOne" parameterType="integer" resultType="dto">
+	  	select * from board where board_no=#{board_no}
+	 </select>
+	 
+	 <!-- 추가 -->
+	 <insert id="insertData" parameterType="formBean">
+	 	insert into board 
+	 	values(#{board_no},#{user_id},#{board_title},#{board_content},
+	 	#{board_wrt_date},0,#{group_number},0,0)
+	 </insert>
+	 
+	 <update id="updateData" parameterType="formBean">
+	 	update board 
+	 	set board_title=#{board_title},board_content=#{board_content}
+	 	where board_no=#{board_no}
+	 </update>
+	 
+	 <delete id="deleteData" parameterType="integer">
+	 	delete from board where board_no=#{board_no}
+	 </delete>
+	 
+	 <!--  maxnum -->
+	 <select id="currentNum" resultType="integer">
+	 	select max(board_no) from board
+	 </select>
+	 
+	 <select id="totalCnt" resultType="integer">
+	 	select count(*) from board
+	 </select>
+	 
+	 <!-- readcnt -->
+	 <update id="updateViews" parameterType="integer">
+	 	update board set views=views + 1 
+	 	where board_no=#{board_no}
+	 </update>
+	
+	 <!-- reply -->
+	 <update id="updateOrder_number" parameterType="formBean">
+	 	update board set order_number=order_number + 1
+	 	where order_number >= #{order_number} and group_number=#{group_number}
+	 </update>
+	
+	 <insert id="insertReData" parameterType="formBean">
+	 	insert into board
+	 	values(#{board_no},#{user_id},#{board_title},#{board_content},
+	 	#{board_wrt_date},0,#{group_number},#{order_number},#{indent})
+	 </insert>
+<!-- 일반 게시판 end -->
+
+
+<!-- 상품 게시판 start-->
+	  <!-- 전체 검색 + 게시글 댓글수 -->
+	 <select id="selectProductList" resultType="product_dto">
+	  	SELECT *, (SELECT COUNT(*) FROM product_reply WHERE product_id=p.product_id) AS reply_count, 
+		(SELECT wish_id FROM wishlist WHERE product_id=p.product_id) AS wish_id 
+		from product p order by write_date desc
+	 </select>
+	 
+	 <!-- 거래완료 안보기 -->
+	 <select id="selectSellingProduct" resultType="product_dto">
+	  	SELECT *,(SELECT COUNT(*) FROM product_reply WHERE product_id=p.product_id) AS reply_count,
+	  	(SELECT wish_id FROM wishlist WHERE product_id=p.product_id) AS wish_id 
+	  	from product p 
+	  	where product_status not in(2)
+	  	order by write_date desc
+	 </select>
+	 
+	 <!-- 키워드 검색 -->
+	 <select id="searchProductList" parameterType="product_formBean" resultType="product_dto">
+	  	select * from product 
+	  	where ${searchName_Product} like concat('%',#{searchValue_Product},'%') 
+	  	order by write_date desc
+	 </select>
+	 
+	 <!-- 번호로 검색 -->
+	 <select id="selectOneProduct" parameterType="integer" resultType="product_dto">
+	  	select * from product where product_id=#{product_id}
+	 </select>
+	 
+	 <!-- 추가 -->
+	 <insert id="insertProductData" parameterType="product_formBean">
+	 	insert into product 
+	 	values(#{product_id},#{user_id},#{category_id},#{product_title},
+	 	#{write_date}, #{product_price}, #{update_date},#{product_image},0,0,#{product_content})
+	 </insert>
+	 
+	 <update id="updateProductData" parameterType="product_formBean">
+	 	update product 
+	 	set product_title=#{product_title},product_content=#{product_content},
+	 	product_price=#{product_price},product_status=#{product_status}
+	 	where product_id=#{product_id}
+	 </update>
+	 
+	 <delete id="deleteProductData" parameterType="integer">
+	 	delete from product where product_id=#{product_id}
+	 </delete>
+	 
+	  <!-- 해당 상품글 댓글 전체 삭제 (해당 상품글 삭제하는용)-->
+    <delete id="deleteAllReply" parameterType="integer">
+	 	delete from product_reply where product_id=#{product_id}
+	 </delete>
+	 
+	 <!--  maxnum -->
+	 <select id="currentProductNum" resultType="integer">
+	 	select max(product_id) from product
+	 </select>
+	 
+	 <select id="totalProductCnt" resultType="integer">
+	 	select count(*) from product
+	 </select>
+	 
+	 <!-- readcnt -->
+	 <update id="updateProductViews" parameterType="integer">
+	 	update product set views=views + 1 
+	 	where product_id=#{product_id}
+	 </update>
+<!-- 상품 게시판 end -->
+ <!-- 회원 관리-->
+ <!-- 아이디 중복검사 -->
+	<select id="check_id" resultType="int" parameterType="String">
+	select count(*) from user where user_id = #{user_id}
+	</select> 
+	
+	<!-- 회원 가입 -->
+	 <insert id="join_user" parameterType="userBean">
+ 	insert into user 
+ 	values(#{user_id},#{password},#{user_name},#{profile_image},#{user_addr})
+ </insert>
+	
+	<!-- 로그인 -->
+	<select id="selectLoginData" resultType="userDto" parameterType="String">
+		select user_id, password
+		from user
+		where user_id = #{user_id}
+	</select>
+</mapper>

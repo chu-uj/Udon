@@ -1,0 +1,280 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+/*기본 초기화*/
+*{margin:0; padding:0; color:inherit;box-sizing: border-box;}
+li{list-style:none;}
+a{text-decoration:none; }
+img{border:0;vertical-align:middle;}
+body{font-family: 'Nanum Gothic','맑은 고딕', Verdana, Geneva, Tahoma, sans-serif;color:#333; font-size:13px;}
+
+/*common*/
+li{
+	/* font-family: 'Poppins', sans-serif; */
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+}
+a:link {text-decoration: none;}
+a:visited {text-decoration: none;}
+a:hover {text-decoration: none;}
+
+a{
+	color:#333;
+}
+.w100{
+    width:100%;
+}
+
+.w1280{
+    width:1280px;
+    margin:auto;
+}
+.ft_title{
+    font-family: 'Jua', sans-serif;
+}
+
+.sm_title{
+    font-size:15px;
+}
+
+.d_block{
+    display:block;
+}
+
+.d_inblock{
+    display: inline-block;
+}
+
+.center{
+    text-align: center;
+    margin:auto;
+}
+
+
+
+/*header*/
+
+.headerWrap{
+    height:100px;
+    background:#fafafa;
+    border-bottom: 1px solid #e7e5e5;
+    line-height: 100px;;
+}
+
+.headerLogo{
+    display: block;
+    background:url('/udon/resources/images/headerlogo.png') no-repeat;
+    background-size:80%;
+    background-position: -30px -15px;
+    float:left;
+    width:160px;
+    height:100px;
+    line-height: 110px;
+    text-align: center;
+    margin-top:-2px;
+}
+
+.headerLogo a{
+    display:block;
+    font-weight: normal;
+    color:#333;
+    font-size:3.5vw;
+}
+
+.headerLogo a:nth-child(even){
+    font-size:10px;
+}
+
+.headerMenu{
+    float: left;
+    margin-left:20px;
+}
+
+.headerMenu>ul>li{
+    display:inline-block;
+    margin:0 10px;
+    transition: .5s;
+}
+
+.headerMenu>ul>li:hover{
+    color:#7099e0;
+}
+
+.headerRightWrap{
+    float:right;
+}
+
+.headerRightWrap>ul>li{
+    display:inline-block;
+    margin:0 10px;
+    transition: .5s;
+}
+
+.headerRightWrap>ul>li:hover{
+    color:#7099e0;
+}
+
+.headerRightWrap>ul>li i{
+    font-size:1.5vw;
+}
+
+
+/*section1*/
+
+.section1{
+    background:#95c4de;
+    height:500px;
+}
+
+.mainVisual{
+    height:500px;
+    background:url('/udon/resources/images/mainVisualBg.png') center/cover no-repeat;
+    text-align: center;
+    line-height: 40px;
+    ;
+}
+
+.bigTitle{
+    font-size:3vw;
+    color:#fafafa;
+}
+
+
+.searchCateWrap{
+    padding-top:100px;
+    height:200px;
+}
+
+.searchTownWrap{
+    margin-top:30px;
+    padding-top:30px;
+    height:200px;
+}
+
+.searchTown, #searchCate{
+    height:40px;
+    padding: 5px 10px;
+    width:35vw;
+    border:none;
+    outline:none;
+    margin-top:10px;
+    background:rgba(255,255,255,.5);
+    border-radius: 10px;
+    font-size:15px;
+}
+
+.checkTitle{
+    font-size:13px;
+}
+
+.searchBtn{
+    width:100px;
+    height:50px;
+    line-height:55px;
+    background:#4574c5;
+    margin:auto;
+    color:#fafafa;
+    font-size:1.6vw;
+    border-radius: 10px;
+    transition: .5s;
+    outline: none;
+    border:none;
+    cursor: pointer;
+}
+
+.searchBtn:hover{
+    background:#fafafa;
+    color:#4574c5;
+}
+
+
+/*section2*/
+
+.section2, .section3{
+    margin-top:50px;
+    height:1000px;
+}
+
+.section2 h2, .section3 h2{
+    display:block;
+    position: relative;
+}
+
+.section2 h2::after, .section3 h2::after{
+    display:block;
+    margin:auto;
+    content: '';
+    width:1px;
+    height:40px;
+    background:#ccc;
+}
+
+.productNewUl>li{
+    float:left;
+    width:24%;
+    margin-right:10px;
+    margin-top:15px;
+    border:1px solid #ccc;
+    border-radius: 10px;
+}
+
+.productImg, .productImg>img{
+    width:95%;
+    height:300px;
+    margin:auto;
+    padding:10px;
+}
+
+
+.productImg img{
+    width:100%;
+}
+
+.productNewUl>li dl{
+    text-align: center;
+}
+
+.productNewUl>li dt{
+    font-size:15px;
+}
+
+.memname{
+    font-size:15px;
+    padding-top:20px;
+}
+
+.price{
+    font-weight: bold;
+    font-size:15px;
+    padding:10px 0;
+}
+
+/*footer*/
+
+.footerWrap{
+    background:#95c4de;
+    height:400px;
+}
+
+.footer > h1 a{
+	color:#fafafa;
+}
+
+.footerMenuUl, .footersnsUl{
+	display:block;
+	text-align:center;
+	height:60px;
+	line-height:60px;
+	
+}
+
+.footerMenuUl>li, .footersnsUl>li{
+	display:inline-block;
+	margin-right:10px;
+}
+
+.copy{
+	text-align:center;
+}
+

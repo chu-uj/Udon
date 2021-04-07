@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev">
+ <select id="selectBlameList" resultType="blameDto">
+  	select blame_id , product_id , user_id , declaration_detail , declaration_reason , DATE_FORMAT(blame_date,'%Y-%m-%d') blame_date from blame order by blame_id
+ </select>
+ 
+ <select id="selectBlameone" resultType="blameDto" parameterType="string">
+ 	select blame_id , product_id , user_id , declaration_detail , declaration_reason , DATE_FORMAT(blame_date,'%Y-%m-%d') blame_date from blame where blame_id = #{blame_id}
+ </select>
+ 
+ <select id="selectBlamePageList" resultType="blameDto" parameterType="string">
+ 	<![CDATA[select blame_id , product_id , user_id , declaration_detail , declaration_reason , DATE_FORMAT(blame_date,'%Y-%m-%d') blame_date from blame
+ 	where blame_id>(#{page} -1)*10 and blame_id<=#{page}*10]]>
+ </select>
+ 
+ <select id="searchBlame" resultType="blameDto" parameterType="blameFormBean">
+	select blame_id , product_id , user_id , declaration_detail , declaration_reason , DATE_FORMAT(blame_date,'%Y-%m-%d') blame_date from blame 
+	where ${searchName} like concat('%',#{searchValue},'%')
+ </select>
+ 
+ <select id="getMaxBoard" resultType="blameDto">
+ 	SELECT MAX(blame_id) currentBoard FROM blame
+ </select>
+ 
+ <insert id="insertBlame" parameterType="blameFormBean">
+ 	insert into blame values(#{blame_id},#{product_id},#{user_id},#{declaration_detail},#{declaration_reason},now())
+ </insert>
+
+ <update id="updateBlame" parameterType="blameFormBean" >
+ 	update blame set blame_id=#{blame_id}, product_id=#{product_id}, user_id=#{user_id}, declaration_detail=#{declaration_detail}, declaration_reason=#{declaration_reason}, blame_date = now() where blame_id=#{blame_id}
+ </update>
+ 
+ <delete id="deleteBlame" parameterType="String">
+ 	delete from blame where blame_id = #{blame_id}
+ </delete>
+</mapper>
